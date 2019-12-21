@@ -1,5 +1,5 @@
 import sys
-from setuptools import setup
+from setuptools import setup, find_packages
 
 if sys.version_info < (3, 0):
      raise NotImplementedError("Sorry, you need at least Python 2.7 or Python 3.4+ to use bottle.")
@@ -12,6 +12,7 @@ setup(name='websockets-router',
     author=matcher.__author__,
     py_modules=['matcher'],
     package_dir = {'': 'bottle_router'},
+    packages= find_packages(exclude=['bottle_router']),
     scripts=['matcher.py'],
     license='MIT',
     platforms='any',

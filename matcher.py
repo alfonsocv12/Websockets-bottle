@@ -238,6 +238,17 @@ class Router(object):
         # No matching route and no alternative method found. We give up
         print('Error not found')
 
+    def excect_route(self, websockets, path):
+        '''
+        Function dedicated to return the function that the path wants binding
+        the websockets for fourther use of it
+        '''
+        self.socket = websockets
+        route_tuple = self.match(path)
+        if not route_tuple: raise Exception('No Route')
+        if route_tuple[1] == {}: route_tuple[0].callback()
+        else: route_tuple[0].callback(route_tuple[1])
+
 
 class ConfigDict(dict):
     ''' A dict-like configuration storage with additional support for
@@ -516,17 +527,8 @@ class Route(object):
 
 class Matcher(Router):
 
-    def __init__():
+    def __init__(self):
         '''
         Constructor function
         '''
         self.router = Router()
-
-    def excect_route(self, websockets, path):
-        '''
-        Function dedicated to return the function that the path wants binding
-        the websockets for fourther use of it
-        '''
-        self.socket = websockets
-        route_tuple = self.match(path)
-        route_tuple[0].callback(route_tuple[1])

@@ -4,7 +4,7 @@ __author__ = 'Alfonso Villalobos'
 __version__ = '0.1'
 __license__ = 'MIT'
 
-from bottle_router import router
+from bottle_router import Router
 
 class Matcher(Router):
 

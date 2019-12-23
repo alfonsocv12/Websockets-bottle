@@ -1,4 +1,4 @@
-import sys, functools, re, hashlib
+import sys, functools, re, hashlib, asyncio
 from collections.abc import MutableMapping as DictMixin
 
 __author__ = 'Alfonso Villalobos'
@@ -237,16 +237,16 @@ class Router(object):
         # No matching route and no alternative method found. We give up
         print('Error not found')
 
-    def excect_route(self, websockets, path):
+    async def excect_route_socket(self, websockets, path):
         '''
         Function dedicated to return the function that the path wants binding
         the websockets for fourther use of it
         '''
-        self.socket = websockets
         route_tuple = self.match(path)
         if not route_tuple: raise Exception('No Route')
-        if route_tuple[1] == {}: route_tuple[0].callback()
-        else: route_tuple[0].callback(route_tuple[1])
+        setattr(route_tuple[0].callback, 'socket', websockets)
+        if route_tuple[1] == {}: await route_tuple[0].callback()
+        else: await route_tuple[0].callback(route_tuple[1])
 
     def merge(self, routes):
         """ Merge the routes of another :class:`Bottle` application or a list of

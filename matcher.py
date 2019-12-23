@@ -11,6 +11,33 @@ def makelist(data): # This is just to handy
     elif data: return [data]
     else: return []
 
+class WSError(Exception):
+
+    def __init__(self, code, msg, hdrs=None):
+        '''
+        Custructor function
+        '''
+        self.code = code
+        self.msg = msg
+        self.hdrs = hdrs
+
+    def __str__(self):
+        return 'WS Error %s: %s' % (self.code, self.msg)
+
+    def __repr__(self):
+        return '<WS %s: %r>' % (self.code, self.msg)
+
+    @property
+    def reason(self):
+        return self.msg
+
+    @property
+    def headers(self):
+        return self.hdrs
+
+    @headers.setter
+    def headers(self, headers):
+        self.hdrs = headers
 
 def yieldroutes(func):
     """ Return a generator for routes that match the signature (name, args)
@@ -232,10 +259,10 @@ class Router(object):
                     allowed.add(method)
         if allowed:
             allow_header = ",".join(sorted(allowed))
-            raise Exception('1007', 'method not allow')
+            raise Exception('method not allow')
 
         # No matching route and no alternative method found. We give up
-        raise Exception('1007', 'Error not found')
+        raise WSError(1007, 'Error not found')
 
     async def excect_route_socket(self, websockets, path):
         '''

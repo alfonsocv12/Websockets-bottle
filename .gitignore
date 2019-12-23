@@ -1,1 +1,5 @@
+__pycache__/
 modules/
+websockets_router.egg-info/
+dist/
+build/

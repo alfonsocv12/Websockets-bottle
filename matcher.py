@@ -232,10 +232,10 @@ class Router(object):
                     allowed.add(method)
         if allowed:
             allow_header = ",".join(sorted(allowed))
-            raise Exception('method not allow')
+            raise Exception('1007', 'method not allow')
 
         # No matching route and no alternative method found. We give up
-        raise Exception('Error not found')
+        raise Exception('1007', 'Error not found')
 
     async def excect_route_socket(self, websockets, path):
         '''

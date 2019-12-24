@@ -273,7 +273,7 @@ class Router(object):
         if not route_tuple: raise Exception('No Route')
         setattr(route_tuple[0].callback, 'socket', websockets)
         if route_tuple[1] == {}: await route_tuple[0].callback()
-        else: await route_tuple[0].callback(route_tuple[1])
+        else: await route_tuple[0].callback(**route_tuple[1])
 
     def merge(self, routes):
         """ Merge the routes of another :class:`Bottle` application or a list of

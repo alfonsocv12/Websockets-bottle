@@ -2,7 +2,7 @@ import sys, functools, re, hashlib, asyncio
 from collections.abc import MutableMapping as DictMixin
 
 __author__ = 'Alfonso Villalobos'
-__version__ = '0.1.6'
+__version__ = '0.1.8'
 __license__ = 'MIT'
 
 
